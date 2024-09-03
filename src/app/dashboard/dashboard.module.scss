@@ -1,0 +1,46 @@
+.container {
+	width: 80%;
+	margin: 2rem auto 0 auto;
+}
+
+.columnLeft {
+	.sectionTitle {
+		color: #fff;
+	}
+	.sectionDescription {
+		color: #fff;
+	}
+	.ctaButton {
+		border: none;
+	}
+}
+
+.feature {
+	.featureIconSmall {
+		width: 3rem;
+		height: 3rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--bs-primary); /* Or any color you prefer */
+		color: white;
+		border-radius: 0.25rem; /* Adjust if needed */
+		font-size: 1.5rem;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better visibility */
+
+		background: #007bff; /* Bootstrap primary color */
+		color: white;
+		border-radius: 0.5rem;
+
+		svg {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+	.featureTitle {
+		color: #fff;
+	}
+	.featureDescription {
+		color: #fff;
+	}
+}
