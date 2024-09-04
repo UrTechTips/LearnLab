@@ -1,14 +1,13 @@
 "use client";
+import Timer from "@/components/timer/timer.component";
 import DocViewer from "@cyntler/react-doc-viewer";
 import "@cyntler/react-doc-viewer/dist/index.css";
 import { getBlob, getStorage, ref } from "firebase/storage";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./view.module.scss";
-import Timer from "@/components/timer/timer.component";
 
 const View = () => {
-	const router = useRouter();
 	const storage = getStorage();
 	const searchParams = useSearchParams();
 	const path = searchParams.get("path");
@@ -33,7 +32,17 @@ const View = () => {
 			<div className={styles.left}>
 				<Timer name={name} courseName={courseName} />
 			</div>
-			<div className={styles.right}>{blob && <DocViewer documents={[{ uri: window.URL.createObjectURL(blob), fileName: name }]} />}</div>
+			<div className={styles.right}>
+				{blob && (
+					<DocViewer
+						style={{ width: "100%", height: "40rem", overflowY: "scroll" }}
+						documents={[{ uri: window.URL.createObjectURL(blob), fileName: name }]}
+						config={{
+							pdfVerticalScrollByDefault: true,
+						}}
+					/>
+				)}
+			</div>
 		</div>
 	);
 };

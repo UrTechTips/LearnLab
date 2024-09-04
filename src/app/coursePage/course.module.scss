@@ -15,6 +15,12 @@
 	color: #e0e0e0;
 }
 
+.info {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
 .fileList {
 	border: 1px solid #444;
 	background-color: #333;
