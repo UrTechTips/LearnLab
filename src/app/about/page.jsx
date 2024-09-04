@@ -24,7 +24,7 @@ const data = [
 	{
 		name: "Mallipeddi Harsha Vardhan",
 		desc: "2nd year Scope VIT-AP University",
-		linkedin: "https://www.linkedin.com/in/m-harsha-vardhan-a2781a318/",
+		linkedin: "https://www.linkedin.com/in/harsha-vardhan-mallipeddi-a2781a318/",
 		image: "/images/Harsha.jpg",
 	},
 	{
