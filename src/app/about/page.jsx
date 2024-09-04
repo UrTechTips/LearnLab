@@ -30,11 +30,13 @@ const data = [
 	{
 		name: "Angelina Ruth Robert",
 		desc: "2nd year Scope VIT-AP University",
+		linkedin: "https://www.linkedin.com/in/angelina-ruth-robert-b3b40a30a",
 		image: "/images/Angelina.jpg",
 	},
 	{
 		name: "Nagavarapu Vaishnavi Sanjana",
 		desc: "2nd year Scope VIT-AP University",
+		linkedin: "https://www.linkedin.com/in/vaishnavi-sanjana-nagavarapu-902026327",
 		image: "/images/Sanjana.jpg",
 	},
 ];
