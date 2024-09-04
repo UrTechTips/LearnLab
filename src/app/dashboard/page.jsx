@@ -4,16 +4,17 @@ import { UserContext } from "../layout";
 import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.scss";
 import { auth } from "@/config/firebaseConfig";
+import Courses from "@/components/courses/courses.component";
 
 const Dashboard = () => {
 	const user = auth.currentUser;
 	const isLoggedIn = useContext(UserContext).isLoggedIn;
 	const router = useRouter();
 	useEffect(() => {
-		if (!isLoggedIn) {
-			router.push("/");
+		if (!user) {
+			// router.push("/");
 		}
-	}, [isLoggedIn]);
+	}, []);
 
 	return (
 		<>
@@ -72,6 +73,7 @@ const Dashboard = () => {
 						</div>
 					</div>
 				</div>
+				<Courses />
 			</div>
 		</>
 	);

@@ -1,0 +1,25 @@
+.container {
+	margin: 0;
+	padding: 0;
+	width: 70%;
+	height: calc(100vh - 4rem);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-inline: auto;
+	gap: 2rem;
+
+	.left {
+		flex-basis: 30%;
+
+		h1 {
+			font-size: 1rem;
+		}
+	}
+
+	.right {
+		// width: 50%;
+		flex-basis: 70%;
+		// height: 100%;
+	}
+}

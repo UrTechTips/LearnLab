@@ -18,7 +18,7 @@ export default function Home() {
 				<div className={styles.content}>
 					<h1 className={`display-5 fw-bold ${styles.heroText}`}>Welcome to learn lab</h1>
 					<div className="col-lg-6 mx-auto">
-						<p className="lead mb-4">Discover a new way of learning with personalized paths, engaging resources, and real-time progress tracking. Whether you&#39re mastering new skills or exploring fresh topics, Learn Lab empowers you to take control of your education. Start your journey today and unlock the knowledge you need to succeed.</p>
+						<p className="lead mb-4">Discover a new way of learning with personalized paths, engaging resources, and real-time progress tracking. Whether you&#39;re mastering new skills or exploring fresh topics, Learn Lab empowers you to take control of your education. Start your journey today and unlock the knowledge you need to succeed.</p>
 						<div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
 							<button type="button" className="btn btn-primary btn-lg px-4 gap-3" onClick={handleLogin}>
 								Sign up
