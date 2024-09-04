@@ -67,7 +67,7 @@ const Courses = () => {
 										<button className="btn btn-primary" onClick={() => handleView(course)}>
 											View
 										</button>
-										{data.find((d) => d.name === course.name) ? <h6>Studied for {formatTime(data.find((d) => d.name === course.name)?.time)}</h6> : <></>}
+										{data?.find((d) => d.name === course.name) ? <h6>Studied for {formatTime(data.find((d) => d.name === course.name)?.time)}</h6> : <></>}
 									</div>
 									{/* <button className="btn btn-outline-secondary">Delete</button> */}
 								</div>
