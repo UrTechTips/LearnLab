@@ -66,7 +66,6 @@ const RegisterPage = () => {
 						phone: user.phoneNumber,
 						email: user.email,
 						name: user.displayName,
-						something: user.metadata,
 					});
 				}
 
