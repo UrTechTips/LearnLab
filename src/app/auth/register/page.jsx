@@ -63,6 +63,10 @@ const RegisterPage = () => {
 				if (!userSnapshot.exists()) {
 					await setDoc(userDoc, {
 						role: role,
+						phone: user.phoneNumber,
+						email: user.email,
+						name: user.displayName,
+						something: user.metadata,
 					});
 				}
 
