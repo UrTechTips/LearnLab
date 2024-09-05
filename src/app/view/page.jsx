@@ -1,6 +1,7 @@
 "use client";
 import Timer from "@/components/timer/timer.component";
 import DocViewer from "@cyntler/react-doc-viewer";
+// import DocViewer, { DocViewerRenderers } from "react-doc-viewer";
 import "@cyntler/react-doc-viewer/dist/index.css";
 import { getBlob, getStorage, ref } from "firebase/storage";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -36,7 +37,7 @@ const View = () => {
 				{blob && (
 					<DocViewer
 						style={{ width: "100%", height: "40rem", overflowY: "scroll" }}
-						documents={[{ uri: window.URL.createObjectURL(blob), fileName: name }]}
+						documents={[{ uri: window.URL.createObjectURL(blob), fileName: name, fileData: blob }]}
 						config={{
 							pdfVerticalScrollByDefault: true,
 						}}

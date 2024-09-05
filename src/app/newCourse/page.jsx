@@ -88,7 +88,7 @@ const NewCourse = () => {
 						<label for="formFile" className="form-label">
 							Upload educational resources (any file type)
 						</label>
-						<input className={`form-control`} type="file" id="formFile" multiple onChange={handleFileChange} />
+						<input className={`form-control`} type="file" id="formFile" multiple onChange={handleFileChange} accept=".pdf,.odt,.htm,.html,.mp4,.webp,.csv,.txt,.jpg,.jpeg,.png," />
 					</div>
 					{error}
 					<button className="btn btn-primary w-100 py-2 mb-3" type="button" onClick={handleUpload}>
