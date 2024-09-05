@@ -5,7 +5,7 @@ import styles from "./courses.module.scss";
 import { useRouter } from "next/navigation";
 import { auth } from "@/config/firebaseConfig";
 
-const Courses = () => {
+const Courses = ({ top }) => {
 	const user = auth.currentUser;
 	const router = useRouter();
 	const db = getFirestore();
@@ -18,7 +18,7 @@ const Courses = () => {
 			if (user) {
 				const userDoc = doc(db, "users", user.uid);
 				const userSnapshot = await getDoc(userDoc);
-				const data = userSnapshot.data().courses;
+				const data = userSnapshot.data()?.courses;
 				setData(data);
 			}
 			const coursesArray = [];
@@ -27,7 +27,12 @@ const Courses = () => {
 				const newData = { id: doc.id, ...doc.data() };
 				coursesArray.push(newData);
 			});
-			setCourses(coursesArray);
+
+			if (top) {
+				setCourses(coursesArray.slice(0, 3));
+			} else {
+				setCourses(coursesArray);
+			}
 		};
 		run();
 	}, [user]);
@@ -51,15 +56,10 @@ const Courses = () => {
 	return (
 		<>
 			<div className={styles.container}>
-				<div className={styles.header}>
-					<h2>Available Courses</h2>
-					<p>Manage your courses below:</p>
-				</div>
-
 				<div className={`row ${styles.cards}`}>
 					{courses.map((course, index) => (
 						<div key={index} className="col-md-6 col-lg-4">
-							<div className="card">
+							<div className={`card mb-4 ${styles.card}`}>
 								<div className="card-body">
 									<h5 className="card-title">{course.name}</h5>
 									<p className="card-text">{course.mentor.name}</p>

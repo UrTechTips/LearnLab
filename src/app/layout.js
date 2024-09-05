@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
 
 				const userSnapshot = await getDoc(doc(db, "users", user.uid));
 				console.log(userSnapshot.data());
-				setRole(userSnapshot.data().role);
+				setRole(userSnapshot.data()?.role);
 			} else {
 				setIsLoggedIn(false);
 				setRole(null);

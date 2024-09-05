@@ -1,6 +1,6 @@
 "use client";
 import { auth } from "@/config/firebaseConfig";
-import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { deleteUser, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -13,19 +13,48 @@ const LoginRegister = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleSubmit = () => {
-		signInWithEmailAndPassword(auth, email, password)
-			.then((user) => {
-				router.push("/dashboard");
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+	const deleteAccountAndSignOut = async (user) => {
+		try {
+			await deleteUser(user);
+			await signOut(auth);
+			alert("Account creation failed. Please create an account first.");
+			router.push("/auth/register");
+		} catch (error) {
+			console.error("Error deleting account:", error);
+		}
+	};
+
+	const handleSubmit = async () => {
+		try {
+			const userCredential = await signInWithEmailAndPassword(auth, email, password);
+			const user = userCredential.user;
+
+			const userDoc = doc(db, "users", user.uid);
+			const userSnapshot = await getDoc(userDoc);
+
+			if (!userSnapshot.exists()) {
+				await deleteAccountAndSignOut(user);
+				return;
+			}
+
+			router.push("/dashboard");
+		} catch (error) {
+			console.error("Error signing in:", error);
+		}
 	};
 
 	const handleGoogleSignIn = async () => {
 		try {
 			const result = await signInWithPopup(auth, provider);
+			const user = result.user;
+
+			const userDoc = doc(db, "users", user.uid);
+			const userSnapshot = await getDoc(userDoc);
+
+			if (!userSnapshot.exists()) {
+				await deleteAccountAndSignOut(user);
+				return;
+			}
 			router.push("/dashboard");
 		} catch (error) {
 			console.error("Error signing in with Google:", error);

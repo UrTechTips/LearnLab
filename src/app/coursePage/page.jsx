@@ -1,10 +1,13 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
-import styles from "./course.module.scss";
-import { useEffect, useState } from "react";
-import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
 import { app, auth } from "@/config/firebaseConfig";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getDownloadURL, getStorage, listAll, ref } from "firebase/storage";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+
+import styles from "./course.module.scss";
 
 const fileData = ["README.md", "index.js", "styles.module.scss", "components/FileList.jsx", "public/logo.png"];
 
@@ -89,7 +92,8 @@ const CoursePage = () => {
 					</h6>
 				</div>
 				<div>
-					<h5>Studied For: {formatTime(userData?.time)}</h5>
+					<div>{userData?.time ? <h6>Studied For: {formatTime(userData?.time)}</h6> : <></>}</div>
+					<div>{userData?.viewed ? <h6>Completed: {userData.viewed.length}</h6> : <></>}</div>
 				</div>
 			</div>
 			<ul className={styles.fileList}>
@@ -97,7 +101,7 @@ const CoursePage = () => {
 					<li key={index} className={styles.fileItem} onClick={() => handleClick(file)}>
 						<div className={styles.file}>
 							<h6>{file.name}</h6>
-							<p>F</p>
+							{userData?.viewed?.includes(file.name) ? <IoCheckmarkDoneCircle style={{ fontSize: 20 }} /> : <IoCheckmarkDoneCircleOutline style={{ fontSize: 20 }} />}
 						</div>
 					</li>
 				))}

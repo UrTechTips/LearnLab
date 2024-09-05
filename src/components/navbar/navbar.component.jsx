@@ -18,6 +18,7 @@ const Nabar = ({ isLoggedIn }) => {
 				console.log(err);
 			});
 	};
+
 	return (
 		<>
 			<div className={`px-3 py-2 ${styles.navbar}`}>
@@ -59,11 +60,11 @@ const Nabar = ({ isLoggedIn }) => {
 									About us
 								</Link>
 							</li>
-							{/* <li>
+							<li>
 								<Link href="/contact" className="nav-link text-white">
 									Contact us
 								</Link>
-							</li> */}
+							</li>
 							<li>
 								<Link href="/pricing" className="nav-link text-white">
 									Pricing

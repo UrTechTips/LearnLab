@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import styles from "./newCourse.module.scss";
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { app, auth } from "@/config/firebaseConfig";
-import { addDoc, collection, doc, getFirestore } from "firebase/firestore";
+import { addDoc, collection, doc, getDocs, getFirestore, query, where } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 
 const NewCourse = () => {
@@ -20,44 +20,54 @@ const NewCourse = () => {
 	};
 
 	const handleUpload = async () => {
-		files.forEach((file, index) => {
-			const reader = new FileReader();
+		const q = query(collection(db, "courses"), where("name", "==", name)); // Query Firestore for courses with the same name
 
-			reader.onload = (e) => {
-				const blob = new Blob([e.target.result], { type: file.type });
-				const filePath = `${name}/${file.name}`;
-				const storageRef = ref(storage, filePath);
+		try {
+			const querySnapshot = await getDocs(q);
+			if (!querySnapshot.empty) {
+				alert("A course with this name already exists. Please choose a different name.");
+				return;
+			}
 
-				console.log(`Uploading file #${index + 1}: ${file.name}`);
+			files.forEach((file, index) => {
+				const reader = new FileReader();
 
-				uploadBytes(storageRef, blob)
-					.then(() => {
-						console.log(`${file.name} uploaded successfully`);
-					})
-					.catch((err) => {
-						setError(err);
-						console.error(`Failed to upload ${file.name}:`, err);
-					});
-			};
+				reader.onload = (e) => {
+					const blob = new Blob([e.target.result], { type: file.type });
+					const filePath = `${name}/${file.name}`;
+					const storageRef = ref(storage, filePath);
 
-			reader.readAsArrayBuffer(file);
-		});
-		await addDoc(collection(db, "courses"), {
-			name: name,
-			by: user.uid,
-			mentor: {
-				name: user.displayName,
-				email: user.email,
-			},
-		})
-			.then((snapshot) => {
-				console.log("Course Created");
-				router.push("/dashboard");
-			})
-			.catch((err) => {
-				setError(err);
-				router.refresh();
+					console.log(`Uploading file #${index + 1}: ${file.name}`);
+
+					uploadBytes(storageRef, blob)
+						.then(() => {
+							console.log(`${file.name} uploaded successfully`);
+						})
+						.catch((err) => {
+							setError(err);
+							console.error(`Failed to upload ${file.name}:`, err);
+						});
+				};
+
+				reader.readAsArrayBuffer(file);
 			});
+
+			await addDoc(collection(db, "courses"), {
+				name: name,
+				by: user.uid,
+				mentor: {
+					name: user.displayName,
+					email: user.email,
+				},
+			});
+
+			console.log("Course created successfully");
+			router.push("/dashboard");
+		} catch (err) {
+			console.error("Error creating course or uploading files:", err);
+			setError(err);
+			router.refresh();
+		}
 	};
 
 	return (

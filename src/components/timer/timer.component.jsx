@@ -27,10 +27,16 @@ const Timer = ({ name, courseName }) => {
 
 				if (courseIndex !== -1) {
 					courses[courseIndex].time += totalSeconds;
+					if (courses[courseIndex].viewed) {
+						courses[courseIndex].viewed.push(name);
+					} else {
+						courses[courseIndex].viewed = [name];
+					}
 				} else {
 					courses.push({
 						name: courseName,
 						time: totalSeconds,
+						viewed: [name],
 					});
 				}
 

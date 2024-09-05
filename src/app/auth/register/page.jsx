@@ -34,6 +34,8 @@ const RegisterPage = () => {
 				const userDoc = doc(db, "users", user.uid);
 				await setDoc(userDoc, {
 					role: role,
+					email: email,
+					name: name,
 				});
 
 				router.push("/dashboard");
@@ -63,7 +65,6 @@ const RegisterPage = () => {
 				if (!userSnapshot.exists()) {
 					await setDoc(userDoc, {
 						role: role,
-						phone: user.phoneNumber,
 						email: user.email,
 						name: user.displayName,
 					});

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.scss";
 import { auth } from "@/config/firebaseConfig";
 import Courses from "@/components/courses/courses.component";
+import Link from "next/link";
 
 const Dashboard = () => {
 	const user = auth.currentUser;
@@ -16,15 +17,16 @@ const Dashboard = () => {
 		}
 	}, []);
 
+	const handleResourses = () => {
+		router.push("/courses");
+	};
+
 	return (
 		<>
 			<div className={`row row-cols-1 row-cols-md-2 align-items-md-center g-5 py-5 ${styles.container}`}>
 				<div className={`col d-flex flex-column align-items-start gap-2 ${styles.columnLeft}`}>
 					<h2 className={`fw-bold  ${styles.sectionTitle}`}>Welcome back {user?.displayName}!,</h2>
 					<p className={`${styles.sectionDescription}`}>Explore advanced analytics and track your learning progress with our intuitive dashboard.</p>
-					<a href="#" className={`btn btn-primary btn-lg ${styles.ctaButton}`}>
-						Rate Us
-					</a>
 				</div>
 
 				<div className="col">
@@ -51,7 +53,7 @@ const Dashboard = () => {
 						</div>
 
 						<div className={`col d-flex flex-column gap-2 ${styles.feature}`}>
-							<div className={`${styles.featureIconSmall} d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-4 rounded-3 ${styles.icon}`}>
+							<div onClick={handleResourses} className={`${styles.featureIconSmall} d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient btn fs-4 rounded-3 ${styles.icon}`}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" fill="currentColor" className="bi bi-chat-dots" viewBox="0 0 16 16">
 									<path d="M14 2a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h12zM1 4a3 3 0 0 0 3-3h10a3 3 0 0 0 3 3v10a3 3 0 0 0-3 3H4a3 3 0 0 0-3-3V4z" />
 									<path d="M7 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
@@ -73,7 +75,11 @@ const Dashboard = () => {
 						</div>
 					</div>
 				</div>
-				<Courses />
+				<h3 className={styles.courseHead}>Latest Courses</h3>
+				<h6 className={styles.courseSeeAll}>
+					<Link href="/courses">See All</Link>
+				</h6>
+				<Courses top />
 			</div>
 		</>
 	);
